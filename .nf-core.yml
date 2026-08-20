@@ -1,0 +1,82 @@
+repository_type: pipeline
+
+nf_core_version: 4.1.0
+
+lint:
+  files_unchanged:
+    - CODE_OF_CONDUCT.md
+    - assets/nf-core-ampliton_logo_light.png
+    - docs/images/nf-core-ampliton_logo_light.png
+    - docs/images/nf-core-ampliton_logo_dark.png
+    - .github/ISSUE_TEMPLATE/bug_report.yml
+    - .github/PULL_REQUEST_TEMPLATE.md
+    - assets/email_template.txt
+    - docs/README.md
+    - .prettierignore
+    - .github/ISSUE_TEMPLATE/bug_report.yml
+    - .github/ISSUE_TEMPLATE/config.yml
+    - .github/ISSUE_TEMPLATE/feature_request.yml
+    - .github/PULL_REQUEST_TEMPLATE.md
+    - .github/workflows/branch.yml
+    - .github/workflows/pr-comment.yml
+    - .github/workflows/linting.yml
+    - .github/.dockstore.yml
+    - docs/CONTRIBUTING.md
+  nextflow_config:
+    - manifest.name
+    - manifest.homePage
+  nf_test_content: false
+  multiqc_config:
+    - report_comment
+  files_exist:
+    - .github/workflows/nf-test.yml
+    - .github/actions/get-shards/action.yml
+    - .github/actions/nf-test/action.yml
+    - nf-test.config
+    - tests/default.nf.test
+    - CODE_OF_CONDUCT.md
+    - assets/nf-core-ampliton_logo_light.png
+    - docs/images/nf-core-ampliton_logo_light.png
+    - docs/images/nf-core-ampliton_logo_dark.png
+    - .github/ISSUE_TEMPLATE/config.yml
+    - .github/workflows/awstest.yml
+    - .github/workflows/awsfulltest.yml
+    - conf/igenomes.config
+    - conf/igenomes_ignored.config
+    - .github/ISSUE_TEMPLATE/bug_report.yml
+    - .github/ISSUE_TEMPLATE/feature_request.yml
+    - .github/PULL_REQUEST_TEMPLATE.md
+    - .github/.dockstore.yml
+    - docs/CONTRIBUTING.md
+    - .github/workflows/branch.yml
+    - .github/workflows/nf-test.yml
+    - .github/actions/get-shards/action.yml
+    - .github/actions/nf-test/action.yml
+    - .github/workflows/pr-comment.yml
+    - .github/workflows/linting.yml
+  readme:
+    - nextflow_badge
+    - nfcore_template_badge
+    - nextflow_badge
+
+template:
+  org: ikarls
+  name: ampliton
+  description: Workflow to analyse ONT amplicons
+  author: Ida Karlsson
+  version: 1.0.0dev
+  force: true
+  outdir: /Volumes/MyFolder$/idake859/ampliton
+  skip_features:
+    - github
+    - github_badges
+    - ci
+    - nf-test
+    - igenomes
+    - fastqc
+    - seqera_platform
+    - gpu
+    - codespaces
+    - vscode
+    - rocrate
+  is_nfcore: false
