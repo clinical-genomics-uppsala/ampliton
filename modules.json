@@ -9,6 +9,11 @@
                         "branch": "master",
                         "git_sha": "98403d15b0e50edae1f3fec5eae5e24982f1fade",
                         "installed_by": ["modules"]
+                    },
+                    "porechop/abi": {
+                        "branch": "master",
+                        "git_sha": "4aceeffaed1eaa12c0e198b166f898e91e4e781d",
+                        "installed_by": ["modules"]
                     }
                 }
             },

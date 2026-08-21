@@ -4,6 +4,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
+include { PORECHOP_ABI           } from '../modules/nf-core/porechop/abi/main'
 include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -28,6 +29,20 @@ workflow AMPLITON {
 
     def ch_versions = channel.empty()
     def ch_multiqc_files = channel.empty()
+
+    // Handle input fastq files
+    ch_input = ch_samplesheet.map { meta, reads ->
+        [ meta, reads ]
+    }
+    .set { ch_reads }
+
+    //
+    // MODULE: Porechop_ABI
+    //
+    PORECHOP_ABI(ch_reads, [])
+        ch_processed_reads = PORECHOP_ABI.out.reads.map { meta, chopped_reads -> [meta + [single_end:true], chopped_reads] }
+        ch_multiqc_files = ch_multiqc_files.mix(PORECHOP_ABI.out.log.collect{ it[1] } // implicit closure parameter is deprecated
+        )
 
     //
     // Collate and save software versions
