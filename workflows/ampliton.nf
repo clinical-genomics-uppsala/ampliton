@@ -3,10 +3,11 @@
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { MULTIQC                } from '../modules/nf-core/multiqc/main'
-include { PORECHOP_ABI           } from '../modules/nf-core/porechop/abi/main'
-include { paramsSummaryMap       } from 'plugin/nf-schema'
-include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { MULTIQC } from '../modules/nf-core/multiqc/main'
+include { PORECHOP_ABI } from '../modules/nf-core/porechop/abi/main'
+include { NANOQ } from '../modules/nf-core/nanoq/main'
+include { paramsSummaryMap } from 'plugin/nf-schema'
+include { paramsSummaryMultiqc } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ampliton_pipeline'
 
@@ -17,7 +18,6 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ampl
 */
 
 workflow AMPLITON {
-
     take:
     ch_samplesheet // channel: samplesheet read in from --input
     multiqc_config
@@ -31,18 +31,25 @@ workflow AMPLITON {
     def ch_multiqc_files = channel.empty()
 
     // Handle input fastq files
-    ch_input = ch_samplesheet.map { meta, reads ->
-        [ meta, reads ]
-    }
-    .set { ch_reads }
+    ch_input = ch_samplesheet
+        .map { meta, reads ->
+            [meta, reads]
+        }
+        .set { ch_reads }
 
     //
     // MODULE: Porechop_ABI
     //
     PORECHOP_ABI(ch_reads, [])
-        ch_processed_reads = PORECHOP_ABI.out.reads.map { meta, chopped_reads -> [meta + [single_end:true], chopped_reads] }
-        ch_multiqc_files = ch_multiqc_files.mix(PORECHOP_ABI.out.log.collect{ it[1] } // implicit closure parameter is deprecated
-        )
+    ch_chopped_reads = PORECHOP_ABI.out.reads.map { meta, reads -> [meta + [single_end: true], reads] }
+    ch_multiqc_files = ch_multiqc_files.mix(PORECHOP_ABI.out.log.map { meta, log -> log })
+
+    //
+    // MODULE: nanoq
+    //
+    NANOQ(ch_chopped_reads, 'fastq.gz').reads.set { ch_filtered_reads }
+    ch_multiqc_files = ch_multiqc_files.mix(NANOQ.out.stats.map { meta, stats -> stats })
+
 
     //
     // Collate and save software versions
@@ -56,9 +63,9 @@ workflow AMPLITON {
 
     def topic_versions_string = topic_versions.versions_tuple
         .map { process, tool, version ->
-            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+            [process[process.lastIndexOf(':') + 1..-1], "  ${tool}: ${version}"]
         }
-        .groupTuple(by:0)
+        .groupTuple(by: 0)
         .map { process, tool_versions ->
             tool_versions.unique().sort()
             "${process}:\n${tool_versions.join('\n')}"
@@ -68,9 +75,9 @@ workflow AMPLITON {
         .mix(topic_versions_string)
         .collectFile(
             storeDir: "${outdir}/pipeline_info",
-            name:  'ampliton_software_'  + 'mqc_'  + 'versions.yml',
+            name: 'ampliton_software_' + 'mqc_' + 'versions.yml',
             sort: true,
-            newLine: true
+            newLine: true,
         )
 
     //
@@ -99,12 +106,8 @@ workflow AMPLITON {
             ]
         }
     )
-    emit:multiqc_report = MULTIQC.out.report.map { _meta, report -> [report] }.toList() // channel: /path/to/multiqc_report.html
-    versions       = ch_versions                 // channel: [ path(versions.yml) ]
-}
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    THE END
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
+    emit:
+    multiqc_report = MULTIQC.out.report.map { _meta, report -> [report] }.toList() // channel: /path/to/multiqc_report.html
+    versions = ch_versions // channel: [ path(versions.yml) ]
+}
