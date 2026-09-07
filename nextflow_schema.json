@@ -204,5 +204,22 @@
         {
             "$ref": "#/$defs/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "nanoq_minlength": {
+            "type": "integer",
+            "default": 200,
+            "description": "Minimum read length filter (bp)"
+        },
+        "nanoq_maxlength": {
+            "type": "integer",
+            "default": 700,
+            "description": "Maximum read length filter (bp)"
+        },
+        "nanoq_minquality": {
+            "type": "integer",
+            "default": 9,
+            "description": "Minimum average read quality filter (Q)"
+        }
+    }
 }
