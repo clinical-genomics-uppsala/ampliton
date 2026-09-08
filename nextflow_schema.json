@@ -220,6 +220,24 @@
             "type": "integer",
             "default": 9,
             "description": "Minimum average read quality filter (Q)"
+        },
+        "FW_primer": {
+            "type": "string",
+            "description": "Forward primer sequence"
+        },
+        "RV_primer": {
+            "type": "string",
+            "description": "Reverse primer sequence in reverse complement"
+        },
+        "cutadapt_min_overlap": {
+            "type": "integer",
+            "default": 3,
+            "description": "Error tolerance (-u) used when searching for primers"
+        },
+        "cutadapt_max_error_rate": {
+            "type": "number",
+            "default": 0.2,
+            "description": "Minimum overlap (-O)"
         }
     }
 }

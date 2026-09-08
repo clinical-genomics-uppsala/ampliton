@@ -16,6 +16,7 @@ disable_version_detection: true
 run_modules:
   - porechop
   - nanoq
+  - cutadapt
 
 read_count_multiplier: 0.001
 read_count_prefix: "K"

@@ -6,6 +6,7 @@
 include { MULTIQC } from '../modules/nf-core/multiqc/main'
 include { PORECHOP_ABI } from '../modules/nf-core/porechop/abi/main'
 include { NANOQ } from '../modules/nf-core/nanoq/main'
+include { CUTADAPT } from '../modules/nf-core/cutadapt/main'
 include { paramsSummaryMap } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -41,14 +42,22 @@ workflow AMPLITON {
     // MODULE: Porechop_ABI
     //
     PORECHOP_ABI(ch_reads, [])
-    ch_chopped_reads = PORECHOP_ABI.out.reads.map { meta, reads -> [meta + [single_end: true], reads] }
+    ch_chopped_reads = PORECHOP_ABI.out.reads
     ch_multiqc_files = ch_multiqc_files.mix(PORECHOP_ABI.out.log.map { meta, log -> log })
 
     //
     // MODULE: nanoq
     //
-    NANOQ(ch_chopped_reads, 'fastq.gz').reads.set { ch_filtered_reads }
+    NANOQ(ch_chopped_reads, 'fastq.gz')
+    ch_filtered_reads = NANOQ.out.reads
     ch_multiqc_files = ch_multiqc_files.mix(NANOQ.out.stats.map { meta, stats -> stats })
+
+    //
+    // MODULE: cutadapt 
+    //
+    CUTADAPT(ch_filtered_reads)
+    ch_trimmed_matched_reads = CUTADAPT.out.reads
+    ch_multiqc_files = ch_multiqc_files.mix(CUTADAPT.out.log.map { meta, stats -> stats })
 
 
     //
