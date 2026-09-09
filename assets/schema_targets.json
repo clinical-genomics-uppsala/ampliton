@@ -1,0 +1,38 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/ikarls/ampliton/main/assets/schema_targets.json",
+    "title": "ikarls/ampliton pipeline - params.targets schema",
+    "description": "Schema for the file provided with params.targets",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "target": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Target name must be provided and cannot contain spaces",
+                "meta": ["id"]
+            },
+            "FW_primer": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Forward primer sequence must be provided and cannot contain spaces",
+                "meta": ["FW_primer"]
+            },
+            "RV_primer": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Reverse primer sequence must be provided and cannot contain spaces",
+                "meta": ["RV_primer"]
+            },
+            "analysis": {
+                "type": "string",
+                "enum": ["ASV", "COUNT", "MLST", "SPA"],
+                "default": "ASV",
+                "errorMessage": "Analysis must be either of ASV, COUNT, MLST or SPA",
+                "meta": ["analysis"]
+            }
+        },
+        "required": ["target", "FW_primer", "RV_primer"]
+    }
+}

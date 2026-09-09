@@ -35,6 +35,7 @@ workflow PIPELINE_INITIALISATION {
     help              // boolean: Display help message and exit
     help_full         // boolean: Show the full help message
     show_hidden       // boolean: Show hidden parameters in the help message
+    targets           //  string: Path to input targets sheet
 
     main:
 
@@ -106,8 +107,16 @@ workflow PIPELINE_INITIALISATION {
         }
         .set { ch_samplesheet }
 
+    //
+    // Create channel from targets sheet provided through params.targets
+    //
+    channel.fromList(samplesheetToList(targets, "assets/schema_targets.json"))
+        .set { ch_targets }
+
+
     emit:
     samplesheet = ch_samplesheet
+    targets     = ch_targets
     versions    = ch_versions
 }
 

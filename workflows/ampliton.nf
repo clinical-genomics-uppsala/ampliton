@@ -21,6 +21,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ampl
 workflow AMPLITON {
     take:
     ch_samplesheet // channel: samplesheet read in from --input
+    ch_targets     // channel: targets sheet read in from --targets
     multiqc_config
     multiqc_logo
     multiqc_methods_description
@@ -37,6 +38,8 @@ workflow AMPLITON {
             [meta, reads]
         }
         .set { ch_reads }
+
+    ch_targets.view()
 
     //
     // MODULE: Porechop_ABI

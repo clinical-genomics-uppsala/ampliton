@@ -29,6 +29,7 @@ workflow IKARLS_AMPLITON {
 
     take:
     samplesheet // channel: samplesheet read in from --input
+    targets     // channel: targets sheet read in from --targets
 
     main:
 
@@ -37,6 +38,7 @@ workflow IKARLS_AMPLITON {
     //
     AMPLITON (
         samplesheet,
+        targets,
         params.multiqc_config,
         params.multiqc_logo,
         params.multiqc_methods_description,
@@ -66,14 +68,16 @@ workflow {
         params.input,
         params.help,
         params.help_full,
-        params.show_hidden
+        params.show_hidden,
+        params.targets,
     )
 
     //
     // WORKFLOW: Run main workflow
     //
     IKARLS_AMPLITON (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.samplesheet,
+        PIPELINE_INITIALISATION.out.targets,
     )
     //
     // SUBWORKFLOW: Run completion tasks
