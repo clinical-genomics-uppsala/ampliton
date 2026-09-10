@@ -39,12 +39,19 @@ workflow AMPLITON {
         }
         .set { ch_reads }
 
-    ch_targets.view()
+    // Add targets metadata to channel with sample sheet information
+    ch_reads_with_targets = ch_reads
+    .combine(ch_targets.collect().map { targets_list -> [ targets: targets_list ] })
+    .map { meta, reads, target_meta ->
+        def new_meta = meta + target_meta
+        return [ new_meta, reads ]
+    }
+
 
     //
     // MODULE: Porechop_ABI
     //
-    PORECHOP_ABI(ch_reads, [])
+    PORECHOP_ABI(ch_reads_with_targets, []) // ch_combined
     ch_chopped_reads = PORECHOP_ABI.out.reads
     ch_multiqc_files = ch_multiqc_files.mix(PORECHOP_ABI.out.log.map { meta, log -> log })
 
