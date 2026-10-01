@@ -21,7 +21,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ampl
 workflow AMPLITON {
     take:
     ch_samplesheet // channel: samplesheet read in from --input
-    ch_targets     // channel: targets sheet read in from --targets
+    ch_targets // channel: targets sheet read in from --targets
     multiqc_config
     multiqc_logo
     multiqc_methods_description
@@ -33,7 +33,7 @@ workflow AMPLITON {
     def ch_multiqc_files = channel.empty()
 
     // Handle input fastq files
-    ch_input = ch_samplesheet
+    ch_samplesheet
         .map { meta, reads ->
             [meta, reads]
         }
@@ -41,17 +41,17 @@ workflow AMPLITON {
 
     // Add targets metadata to channel with sample sheet information
     ch_reads_with_targets = ch_reads
-    .combine(ch_targets.collect().map { targets_list -> [ targets: targets_list ] })
-    .map { meta, reads, target_meta ->
-        def new_meta = meta + target_meta
-        return [ new_meta, reads ]
-    }
+        .combine(ch_targets.collect().map { targets_list -> [targets: targets_list] })
+        .map { meta, reads, target_meta ->
+            def new_meta = meta + target_meta
+            return [new_meta, reads]
+        }
 
 
     //
     // MODULE: Porechop_ABI
     //
-    PORECHOP_ABI(ch_reads_with_targets, []) // ch_combined
+    PORECHOP_ABI(ch_reads_with_targets, [])
     ch_chopped_reads = PORECHOP_ABI.out.reads
     ch_multiqc_files = ch_multiqc_files.mix(PORECHOP_ABI.out.log.map { meta, log -> log })
 
@@ -66,9 +66,29 @@ workflow AMPLITON {
     // MODULE: cutadapt 
     //
     CUTADAPT(ch_filtered_reads)
+    // Match metadata to each cutadapt fastq output file
     ch_trimmed_matched_reads = CUTADAPT.out.reads
+        .transpose()
+        .map { meta, reads ->
+
+            def target_name = reads.name.replace("${meta.id}_", '').replace('.trim.fastq.gz', '')
+            def target_info = meta.targets.find { it.target == target_name }
+
+            def base_meta = meta.subMap(['id', 'single_end'])
+            def target_meta = target_info.subMap(['target', 'analysis', 'FW_primer', 'RV_primer'])
+            def new_meta = base_meta + target_meta
+
+            return [new_meta, reads]
+        }
+
     ch_multiqc_files = ch_multiqc_files.mix(CUTADAPT.out.log.map { meta, stats -> stats })
 
+    //
+    // Split in different channels based on analysis
+    //
+    ch_mlst = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'MLST' }
+    ch_spa = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'SPA' }
+    ch_counts = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'COUNT' }
 
     //
     // Collate and save software versions
