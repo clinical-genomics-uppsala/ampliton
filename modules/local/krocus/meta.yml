@@ -1,0 +1,74 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+name: "krocus"
+description: Predict sequence types from raw long-read data
+keywords:
+  - mlst
+  - epidemiology
+  - fastq
+tools:
+  - "krocus":
+      description: "krocus performs multi-locus sequence typing from uncorrected long
+        reads."
+      homepage: "https://github.com/andrewjpage/krocus"
+      documentation: "https://github.com/andrewjpage/krocus"
+      tool_dev_url: "https://github.com/andrewjpage/krocus"
+      doi: "10.7717/peerj.5233"
+      publication:
+        author: "Page A.J. & Keane J.A."
+        year: 2018
+        title: "Rapid multi-locus sequence typing direct from uncorrected long reads using Krocus"
+        source: "PeerJ"
+      licence: ["GPL v3"]
+      identifier: biotools:krocus
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'sample1' ]`
+    - reads:
+        type: file
+        description: FASTQ input file
+        pattern: "*.{fq,fastq,fq.gz,fastq.gz}"
+        ontologies:
+          - edam: "http://edamontology.org/format_1930" # FASTQ
+
+output:
+  tsv:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'sample1' ]`
+      - "*.tsv":
+          type: file
+          description: krocus output file with predicted sequence type and allelic profile
+          pattern: "*.tsv"
+          ontologies: []
+  versions_krocus:
+    - - "${task.process}":
+          type: string
+          description: The name of the process
+      - "krocus":
+          type: string
+          description: The name of the tool
+      - "krocus --version":
+          type: eval
+          description: The expression to obtain the version of the tool
+
+topics:
+  versions:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - krocus:
+          type: string
+          description: The name of the tool
+      - krocus --version:
+          type: eval
+          description: The expression to obtain the version of the tool
+authors:
+  - "@ikarls"
+maintainers:
+  - "@ikarls"
