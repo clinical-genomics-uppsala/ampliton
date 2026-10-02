@@ -8,6 +8,7 @@ include { PORECHOP_ABI } from '../modules/nf-core/porechop/abi/main'
 include { NANOQ } from '../modules/nf-core/nanoq/main'
 include { CUTADAPT } from '../modules/nf-core/cutadapt/main'
 include { CAT_FASTQ } from '../modules/nf-core/cat/fastq/main'
+include { KROCUS } from '../modules/local/krocus/main'
 include { paramsSummaryMap } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -98,6 +99,8 @@ workflow AMPLITON {
 
     CAT_FASTQ(ch_mlst_combined)
     ch_krocus_input = CAT_FASTQ.out.reads
+    ch_krocus_scheme = channel.value(file(params.krocus_scheme, checkIfExists: true))
+    KROCUS(ch_krocus_input, ch_krocus_scheme)
 
     ch_spa = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'SPA' }
     ch_counts = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'COUNT' }

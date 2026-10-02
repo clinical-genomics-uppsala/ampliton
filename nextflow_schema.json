@@ -48,8 +48,8 @@
                 }
             }
         },
-        "new_group_1": {
-            "title": "New Group 1",
+        "pre_processing": {
+            "title": "Pre-processing",
             "type": "object",
             "description": "",
             "default": "",
@@ -237,7 +237,7 @@
             "$ref": "#/$defs/input_output_options"
         },
         {
-            "$ref": "#/$defs/new_group_1"
+            "$ref": "#/$defs/pre_processing"
         },
         {
             "$ref": "#/$defs/institutional_config_options"
@@ -245,5 +245,11 @@
         {
             "$ref": "#/$defs/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "krocus_scheme": {
+            "type": "string",
+            "description": "Path to directory with the MLST database for the target species"
+        }
+    }
 }
