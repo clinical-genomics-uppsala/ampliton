@@ -7,6 +7,7 @@ include { MULTIQC } from '../modules/nf-core/multiqc/main'
 include { PORECHOP_ABI } from '../modules/nf-core/porechop/abi/main'
 include { NANOQ } from '../modules/nf-core/nanoq/main'
 include { CUTADAPT } from '../modules/nf-core/cutadapt/main'
+include { CAT_FASTQ } from '../modules/nf-core/cat/fastq/main'
 include { paramsSummaryMap } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -84,9 +85,20 @@ workflow AMPLITON {
     ch_multiqc_files = ch_multiqc_files.mix(CUTADAPT.out.log.map { meta, stats -> stats })
 
     //
-    // Split in different channels based on analysis
+    // MLST: krocus
     //
     ch_mlst = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'MLST' }
+    // Create list with MLST fastq files
+    ch_mlst_combined = ch_mlst
+        .map { meta, reads ->
+            def new_meta = meta.subMap(['id', 'single_end'])
+            return [new_meta, reads]
+        }
+        .groupTuple()
+
+    CAT_FASTQ(ch_mlst_combined)
+    ch_krocus_input = CAT_FASTQ.out.reads
+
     ch_spa = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'SPA' }
     ch_counts = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'COUNT' }
 
