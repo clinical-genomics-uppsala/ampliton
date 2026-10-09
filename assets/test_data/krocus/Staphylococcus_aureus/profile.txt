@@ -1,0 +1,2 @@
+ST	arcC	aroE	glpF	gmk	pta	tpi	yqiL	clonal_complex
+30	2	2	2	2	6	3	2	
