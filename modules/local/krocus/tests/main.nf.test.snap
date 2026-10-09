@@ -1,0 +1,93 @@
+{
+    "saureus - fastq - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        "KROCUS",
+                        "krocus",
+                        "1.0.3"
+                    ]
+                ],
+                "tsv": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_krocus": [
+                    [
+                        "KROCUS",
+                        "krocus",
+                        "1.0.3"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-10-08T08:36:25.987719",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.4"
+        }
+    },
+    "saureus - fastq": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tsv:md5,c7cf51b02e4ebcef355423761596e07c"
+                    ]
+                ],
+                "1": [
+                    [
+                        "KROCUS",
+                        "krocus",
+                        "1.0.3"
+                    ]
+                ],
+                "tsv": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tsv:md5,c7cf51b02e4ebcef355423761596e07c"
+                    ]
+                ],
+                "versions_krocus": [
+                    [
+                        "KROCUS",
+                        "krocus",
+                        "1.0.3"
+                    ]
+                ]
+            },
+            {
+                "versions_krocus": [
+                    [
+                        "KROCUS",
+                        "krocus",
+                        "1.0.3"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-10-08T08:36:04.427965",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.4"
+        }
+    }
+}
