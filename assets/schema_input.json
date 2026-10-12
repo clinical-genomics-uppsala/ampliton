@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/ikarls/ampliton/main/assets/schema_input.json",
-    "title": "ikarls/ampliton pipeline - params.input schema",
+    "$id": "https://raw.githubusercontent.com/clinical-genomics-uppsala/ampliton/main/assets/schema_input.json",
+    "title": "ampliton pipeline - params.input schema",
     "description": "Schema for the file provided with params.input",
     "type": "array",
     "items": {
@@ -11,7 +11,9 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": ["id"]
+                "meta": [
+                    "id"
+                ]
             },
             "fastq_1": {
                 "type": "string",
@@ -28,6 +30,9 @@
                 "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": [
+            "sample",
+            "fastq_1"
+        ]
     }
 }

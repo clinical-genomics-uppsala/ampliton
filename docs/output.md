@@ -1,4 +1,4 @@
-# ikarls/ampliton: Output
+# ampliton: Output
 
 ## Introduction
 

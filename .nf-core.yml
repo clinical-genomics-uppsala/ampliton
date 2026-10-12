@@ -60,13 +60,13 @@ lint:
     - nextflow_badge
 
 template:
-  org: ikarls
+  org: clinical-genomics-uppsala
   name: ampliton
   description: Workflow to analyse ONT amplicons
   author: Ida Karlsson
   version: 1.0.0dev
   force: true
-  outdir: /Volumes/MyFolder$/idake859/ampliton
+  outdir: .
   skip_features:
     - github
     - github_badges

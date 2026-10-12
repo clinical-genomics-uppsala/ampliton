@@ -1,9 +1,9 @@
 #!/usr/bin/env nextflow
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ikarls/ampliton
+    ampliton
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/ikarls/ampliton
+    Github : https://github.com/clinical-genomics-uppsala/ampliton
 ----------------------------------------------------------------------------------------
 */
 
@@ -25,7 +25,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_ampl
 //
 // WORKFLOW: Run main analysis pipeline depending on type of input
 //
-workflow IKARLS_AMPLITON {
+workflow CGU_AMPLITON {
 
     take:
     samplesheet // channel: samplesheet read in from --input
@@ -75,7 +75,7 @@ workflow {
     //
     // WORKFLOW: Run main workflow
     //
-    IKARLS_AMPLITON (
+    CGU_AMPLITON (
         PIPELINE_INITIALISATION.out.samplesheet,
         PIPELINE_INITIALISATION.out.targets,
     )
@@ -88,7 +88,7 @@ workflow {
         params.plaintext_email,
         params.outdir,
         params.monochrome_logs,
-        IKARLS_AMPLITON.out.multiqc_report
+        CGU_AMPLITON.out.multiqc_report
     )
 }
 

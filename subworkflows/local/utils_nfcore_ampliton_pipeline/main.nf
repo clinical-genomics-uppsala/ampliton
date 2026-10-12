@@ -1,5 +1,5 @@
 //
-// Subworkflow with functionality specific to the ikarls/ampliton pipeline
+// Subworkflow with functionality specific to the ampliton pipeline
 //
 
 /*
