@@ -10,7 +10,25 @@
 
 ## Pipeline tools
 
+- [Porechop_ABI](https://www.biorxiv.org/content/10.1101/2022.07.07.499093)
 
+> Bonenfant, Q., Noé, L. and Touzet, H. (2022) ‘Porechop_ABI: discovering unknown adapters in ONT sequencing reads for downstream trimming’. Bioinformatics. doi:10.1101/2022.07.07.499093.
+
+- [nanoq](https://doi.org/10.21105/joss.02991)
+
+> Steinig and Coin (2022). Nanoq: ultra-fast quality control for nanopore reads. Journal of Open Source Software, 7(69), 2991, doi:10.21105/joss.02991.
+
+- [cutadapt](http://dx.doi.org/10.14806/ej.17.1.200)
+
+> Martin, M. (2011) ‘Cutadapt removes adapter sequences from high-throughput sequencing reads’, EMBnet.journal, 17(1), p. 10. doi:10.14806/ej.17.1.200.
+
+- [krocus](https://doi.org/10.7717/peerj.5233)
+
+> Andrew J. Page, Jacqueline A. Keane. (2018) Rapid multi-locus sequence typing direct from uncorrected long reads using Krocus. PeerJ 6:e5233 doi:10.7717/peerj.5233
+
+- [PubMLST](https://doi.org/10.12688/wellcomeopenres.14826.1)
+
+> Keith A. Jolley, James E. Bray, Martin C. J. Maiden. (2018) Open-access bacterial population genomics: BIGSdb software, the PubMLST.org website and their applications. Wellcome Open Research. 3:124 doi:10.12688/wellcomeopenres.14826.1
 
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
 
