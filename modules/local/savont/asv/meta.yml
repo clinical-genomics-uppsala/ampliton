@@ -1,0 +1,98 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+name: "savont_asv"
+description: creates amplicon sequencing variants (ASVs) from fastq input file from one sample
+keywords:
+  - amplicon
+  - long-read
+  - asv
+tools:
+  - "savont":
+      description: "Amplicon sequencing variants (ASVs) and taxonomic profiling from
+        modern long-read (nanopore + PacBio) amplicon sequencing with > 98% accuracy."
+      homepage: "https://github.com/bluenote-1577/savont"
+      documentation: "https://github.com/bluenote-1577/savont"
+      tool_dev_url: "https://github.com/bluenote-1577/savont"
+      doi: "10.64898/2026.05.26.727271"
+      licence: ["MIT"]
+      identifier: null
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'sample1' ]`
+    - reads:
+        type: file
+        description: FASTQ input file
+        pattern: "*.{fq,fastq,fq.gz,fastq.gz}"
+        ontologies:
+          - edam: "http://edamontology.org/format_1930" # FASTQ
+
+output:
+  fasta:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'sample1' ]`
+      - "*final_asvs.fasta.gz":
+            type: file
+            description: sequences of final amplicon sequence variants
+            pattern: "*.fasta.gz"
+  feature_table:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'sample1' ]`
+      - "*feature-table.tsv":
+          type: file
+          description: read counts of each amplicon sequence variant per sample
+          pattern: "*.tsv"
+  final_clusters:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'sample1' ]`
+      - "*final_clusters.tsv":
+          type: file
+          description: reads in each amplicon sequence variant
+          pattern: "*.tsv"
+  log:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'sample1' ]`
+      - "*.log":
+          type: file
+          description: savont log file
+          pattern: "*.log"
+  versions_savont:
+    - - "${task.process}":
+          type: string
+          description: The name of the process
+      - "savont":
+          type: string
+          description: The name of the tool
+      - "savont --version":
+          type: eval
+          description: The expression to obtain the version of the tool
+
+topics:
+  versions:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - savont:
+          type: string
+          description: The name of the tool
+      - savont --version:
+          type: eval
+          description: The expression to obtain the version of the tool
+authors:
+  - "@ikarls"
+maintainers:
+  - "@ikarls"
