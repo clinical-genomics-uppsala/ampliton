@@ -56,7 +56,7 @@ output:
           description: |
             Groovy Map containing sample information
             e.g. `[ id:'sample1' ]`
-      - "*final_clusters.tsv":
+      - "*final_assignments.tsv":
           type: file
           description: reads in each amplicon sequence variant
           pattern: "*.tsv"
