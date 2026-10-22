@@ -31,6 +31,22 @@
                     "RV_primer"
                 ]
             },
+            "min_length": {
+                "type": "integer",
+                "minimum": 1,
+                "errorMessage": "Minimum length must be an integer of length >1",
+                "meta": [
+                    "min_length"
+                ]
+            },
+            "max_length": {
+                "type": "integer",
+                "minimum": 1,
+                "errorMessage": "Maximum length must be an integer of length >1",
+                "meta": [
+                    "max_length"
+                ]
+            },
             "analysis": {
                 "type": "string",
                 "enum": [

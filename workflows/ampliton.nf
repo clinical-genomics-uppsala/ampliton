@@ -9,6 +9,7 @@ include { NANOQ } from '../modules/nf-core/nanoq/main'
 include { CUTADAPT } from '../modules/nf-core/cutadapt/main'
 include { CAT_FASTQ } from '../modules/nf-core/cat/fastq/main'
 include { KROCUS } from '../modules/local/krocus/main'
+include { SAVONT_ASV } from '../modules/local/savont/asv/main'
 include { paramsSummaryMap } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -77,7 +78,7 @@ workflow AMPLITON {
             def target_info = meta.targets.find { it.target == target_name }
 
             def base_meta = meta.subMap(['id', 'single_end'])
-            def target_meta = target_info.subMap(['target', 'analysis', 'FW_primer', 'RV_primer'])
+            def target_meta = target_info.subMap(['target', 'analysis', 'FW_primer', 'RV_primer', 'min_length', 'max_length'])
             def new_meta = base_meta + target_meta
 
             return [new_meta, reads]
@@ -102,7 +103,12 @@ workflow AMPLITON {
     ch_krocus_scheme = channel.value(file(params.krocus_scheme, checkIfExists: true))
     KROCUS(ch_krocus_input, ch_krocus_scheme)
 
-    ch_spa = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'SPA' }
+    //
+    // ASV: savont
+    //
+    ch_asv = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'ASV' || meta.analysis == 'SPA' }
+    SAVONT_ASV(ch_asv)
+
     ch_counts = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'COUNT' }
 
     //
