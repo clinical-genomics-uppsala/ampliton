@@ -1,0 +1,155 @@
+{
+    "saureus - fastq - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "min_length": "200",
+                            "max_length": "700"
+                        },
+                        "test_final_asvs.fasta.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test",
+                            "min_length": "200",
+                            "max_length": "700"
+                        },
+                        "test_feature-table.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test",
+                            "min_length": "200",
+                            "max_length": "700"
+                        },
+                        "test_final_assignments.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test",
+                            "min_length": "200",
+                            "max_length": "700"
+                        },
+                        "test_savont.log:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "4": [
+                    [
+                        "SAVONT_ASV",
+                        "savont",
+                        "savont 0.8.0"
+                    ]
+                ],
+                "fasta": [
+                    [
+                        {
+                            "id": "test",
+                            "min_length": "200",
+                            "max_length": "700"
+                        },
+                        "test_final_asvs.fasta.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "feature_table": [
+                    [
+                        {
+                            "id": "test",
+                            "min_length": "200",
+                            "max_length": "700"
+                        },
+                        "test_feature-table.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "final_assignments": [
+                    [
+                        {
+                            "id": "test",
+                            "min_length": "200",
+                            "max_length": "700"
+                        },
+                        "test_final_assignments.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "log": [
+                    [
+                        {
+                            "id": "test",
+                            "min_length": "200",
+                            "max_length": "700"
+                        },
+                        "test_savont.log:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_savont": [
+                    [
+                        "SAVONT_ASV",
+                        "savont",
+                        "savont 0.8.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-10-23T11:27:57.256483"
+    },
+    "saureus - fastq": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "min_length": "200",
+                        "max_length": "700"
+                    },
+                    "test_final_asvs.fasta.gz:md5,632a08e680eb6755222d431363ae06d8"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test",
+                        "min_length": "200",
+                        "max_length": "700"
+                    },
+                    "test_feature-table.tsv:md5,0a39cac14a267c808a184295291cad3b"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test",
+                        "min_length": "200",
+                        "max_length": "700"
+                    },
+                    "test_final_assignments.tsv:md5,d643197fbcbf1aa9013912699e92c9c9"
+                ]
+            ],
+            {
+                "versions_savont": [
+                    [
+                        "SAVONT_ASV",
+                        "savont",
+                        "savont 0.8.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-10-23T11:27:40.363344"
+    }
+}

@@ -49,7 +49,7 @@ process SAVONT_ASV {
     """
     echo ${args}
     
-    touch ${prefix}_final_asvs.fasta.gz
+    echo "" | gzip > ${prefix}_final_asvs.fasta.gz
     touch ${prefix}_feature-table.tsv
     touch ${prefix}_final_assignments.tsv
     touch ${prefix}_savont.log
