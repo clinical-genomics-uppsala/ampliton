@@ -24,11 +24,15 @@
 
 - [krocus](https://doi.org/10.7717/peerj.5233)
 
-> Andrew J. Page, Jacqueline A. Keane. (2018) Rapid multi-locus sequence typing direct from uncorrected long reads using Krocus. PeerJ 6:e5233 doi:10.7717/peerj.5233
+> Andrew J. Page, Jacqueline A. Keane. (2018) Rapid multi-locus sequence typing direct from uncorrected long reads using Krocus. PeerJ 6:e5233 doi:10.7717/peerj.5233.
 
 - [PubMLST](https://doi.org/10.12688/wellcomeopenres.14826.1)
 
 > Keith A. Jolley, James E. Bray, Martin C. J. Maiden. (2018) Open-access bacterial population genomics: BIGSdb software, the PubMLST.org website and their applications. Wellcome Open Research. 3:124 doi:10.12688/wellcomeopenres.14826.1
+
+- [savont](https://doi.org/10.64898/2026.05.26.727271)
+
+> Shaw, J, Riisgaard-Jensen, M, Andersen, KS, Kirkegaard, R, Dueholm, MKD and Li, H. (2026) ‘Sensitive long-read amplicon sequence variant recovery with savont’. bioRxiv doi: 10.64898/2026.05.26.727271.
 
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
 
