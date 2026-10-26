@@ -9,7 +9,8 @@ The pipeline is under development and currently performs the following:
 3. Removal of primers and splitting of targets with [`cutadapt`](https://cutadapt.readthedocs.io/)
 4. Multi-locus sequence typing with [`krocus`](https://github.com/andrewjpage/krocus)
 5. Generation of amplicon sequence variants (ASVs) with [`savont`](https://github.com/bluenote-1577/savont)
-6. Present QC with [`MultiQC`](http://multiqc.info/)
+6. Spa-typing of ASVs with [`spaTyper`](https://github.com/HCGB-IGTP/spaTyper) for *Staphylococcus aureus*
+7. Present QC with [`MultiQC`](http://multiqc.info/)
 
 ## Usage
 
@@ -40,14 +41,14 @@ SPA,AGACGATCCTTCGGTGAGC,CAGTAAATGACATTGCAAAAGC,200,700,SPA
 ```
 For each amplicon, indicate the name, the primer sequences and the type of analysis.
 The forward primer sequence should be given in 5'-3' direction and the reverse primer sequence should be given as the reverse complementary.
-For ASV,and SPA analysis the minimum and maximum amplicon length is required.
+For ASV, and SPA analysis the minimum and maximum amplicon length is required.
 All samples will be analysed for the same set of targets.
 
 | Analysis | Description | Status |
 | -------- | ----------- | ------ |
 | MLST | runs krocus on MLST reads | draft |
 | ASV | generates amplicon sequence variants with savont from any amplicon | draft |
-| SPA | runs spatyper on spa asvs | planned |
+| SPA | runs spaTyper on spa asvs | draft |
 | COUNT | output the number of reads from any amplicon | planned |
 
 

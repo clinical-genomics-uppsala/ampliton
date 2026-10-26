@@ -34,6 +34,12 @@
 
 > Shaw, J, Riisgaard-Jensen, M, Andersen, KS, Kirkegaard, R, Dueholm, MKD and Li, H. (2026) ‘Sensitive long-read amplicon sequence variant recovery with savont’. bioRxiv doi: 10.64898/2026.05.26.727271.
 
+- [spaTyper](https://github.com/HCGB-IGTP/spaTyper)
+
+- [The spa typing website](http://spaserver.ridom.de/) developed by Ridom GmbH and curated by SeqNet.org.
+
+> Harmsen D, Claus H, Witte W, Rothgänger J, Claus H, Turnwald D, & Vogel U. (2003). Typing of methicillin-resistant Staphylococcus aureus in a university hospital setting using a novel software for spa-repeat determination and database management. J. Clin. Microbiol. 41:5442-5448. doi: 10.1128/jcm.41.12.5442-5448.2003.
+
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
 
 > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
