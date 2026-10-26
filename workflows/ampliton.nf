@@ -10,6 +10,8 @@ include { CUTADAPT } from '../modules/nf-core/cutadapt/main'
 include { CAT_FASTQ } from '../modules/nf-core/cat/fastq/main'
 include { KROCUS } from '../modules/local/krocus/main'
 include { SAVONT_ASV } from '../modules/local/savont/asv/main'
+include { GUNZIP } from '../modules/nf-core/gunzip/main'
+include { SPATYPER } from '../modules/nf-core/spatyper/main'
 include { paramsSummaryMap } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -111,6 +113,16 @@ workflow AMPLITON {
     //
     ch_asv = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'ASV' || meta.analysis == 'SPA' }
     SAVONT_ASV(ch_asv)
+
+
+    //
+    // MODULE: spatyper
+    //
+    ch_spatyper = SAVONT_ASV.out.fasta.filter { meta, reads -> meta.analysis == 'SPA' }
+    ch_spa_repeats = params.spa_repeats ? file(params.spa_repeats, checkIfExists: true) : []
+    ch_spa_types = params.spa_types ? file(params.spa_types, checkIfExists: true) : []
+    GUNZIP(ch_spatyper)
+    SPATYPER(GUNZIP.out.gunzip, ch_spa_repeats, ch_spa_types)
 
     ch_counts = ch_trimmed_matched_reads.filter { meta, reads -> meta.analysis == 'COUNT' }
 
