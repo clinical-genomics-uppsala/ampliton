@@ -100,7 +100,10 @@ workflow AMPLITON {
 
     CAT_FASTQ(ch_mlst_combined)
     ch_krocus_input = CAT_FASTQ.out.reads
-    ch_krocus_scheme = channel.value(file(params.krocus_scheme, checkIfExists: true))
+
+    ch_krocus_scheme = ch_mlst_combined
+        .first()
+        .map { file(params.krocus_scheme, checkIfExists: true) }
     KROCUS(ch_krocus_input, ch_krocus_scheme)
 
     //
